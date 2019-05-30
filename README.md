@@ -218,11 +218,11 @@ Normally, scripts on different pages are allowed to access each other if and onl
 If the message want to sent inside of the child it can be used `window.parent.postMessage`
 
 #### Resources
-https://github.com/praveenpuglia/shadow-dom-in-depth
-https://javascript.info/shadow-dom-events
-https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM
-https://stackoverflow.com/questions/55678082/turn-iframe-elements-into-text-data-javascript/55678608#55678608
-https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage
-https://robertnyman.com/html5/postMessage/postMessage.html
-https://gist.github.com/pbojinov/8965299
-https://www.oreilly.com/library/view/modern-javascript/9781491971420/ch05.html
+- https://github.com/praveenpuglia/shadow-dom-in-depth
+- https://javascript.info/shadow-dom-events
+- https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM
+- https://stackoverflow.com/questions/55678082/turn-iframe-elements-into-text-data-javascript/55678608#55678608
+- https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage
+- https://robertnyman.com/html5/postMessage/postMessage.html
+- https://gist.github.com/pbojinov/8965299
+- https://www.oreilly.com/library/view/modern-javascript/9781491971420/ch05.html
