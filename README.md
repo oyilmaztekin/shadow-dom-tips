@@ -1,3 +1,5 @@
+![Shadow Dom Representation](https://mdn.mozillademos.org/files/15788/shadow-dom.png)
+
 ## What is the Shadow DOM?
 
 What Is the Shadow DOM? So what exactly is this mysterious-sounding shadow DOM? According to the W3C: 
@@ -12,6 +14,14 @@ A shadow host is a DOM node that contains a shadow root. It is a regular element
 
 ## Shadow Root
 A shadow root is an element that gets added to a shadow host. The shadow root is the root node for the shadow DOM branch. Shadow root child nodes are not returned by DOM queries even if a child node matches the given query selector. Creating a shadow root on a node in the parent page makes the node upon which it was created a shadow host.
+
+- **Shadow host:** The regular DOM node that the shadow DOM is attached to.
+
+- **Shadow tree:** The DOM tree inside the shadow DOM.
+
+- **Shadow boundary:** the place where the shadow DOM ends, and the regular DOM begins.
+
+- **Shadow root:** The root node of the shadow tree.
 
 ## CREATING A SHADOW ROOT
 Creating a shadow root is a straightforward process. First a shadow host node is selected, and then a shadow root is created in the shadow host.
@@ -164,5 +174,55 @@ Sometimes targeting individual shadow roots using the `::shadow` pseudoelement i
     }
 ```
 
+Also it is possible to manipulate the content held inside of the shadow dom. `contentWindow` of the `HTMLIFrameElement` can be used under this circumstances. 
 
- 
+>The contentWindow property returns the Window object of an element. You can use this Window object to access the iframe's document and its internal DOM. This attribute is read-only, but its properties can be manipulated like the global Window object. MDN
+
+Consider you have an iframe and its Shadow DOM Tree and you want to access a span element declared with foo id.
+
+```javascript
+// HTMLIFrame​Element 
+let someIframe = document.getElementBy("idOfIframe");
+
+// Global Object of the Iframe
+let frameWindow = someIframe.contentWindow;
+
+// Dom Tree of the Target Window
+let domTreeofFrame = frameWindow.document;
+
+let textSpan = domTreeofFrame.getElementById("foo");
+```
+
+## Events and the Shadow DOM
+At this point you might be thinking that projecting nodes instead of cloning them is a great optimization that will help to keep changes synchronized—but what about events bound to these projected nodes?
+
+In these cases you can still determine the shadow root of the projected node by examining the path property of the event object. Some events are never retargeted, though, which makes sense if you think about it. For instance, how would a `scroll` event be retargeted? If a user scrolls one projected node, should the others scroll? The events that are not retargeted are:
+
+- abort
+- error
+- select
+- change
+- load
+- reset
+- resize
+- scroll
+- selectstart 
+
+Events that happen in shadow DOM have the host element as the target, when caught outside of the component.
+
+## Sending message from sub to parent
+The `window.postMessage()` can be used to communicate window elements which is a method safely enables cross-origin communication between `Window` objects; e.g., between a page and a pop-up that it spawned, or between a page and an iframe embedded within it.
+
+Normally, scripts on different pages are allowed to access each other if and only if the pages they originate from share the same protocol, port number, and host (also known as the "same-origin policy"). `window.postMessage()` provides a controlled mechanism to securely circumvent this restriction (if used properly).
+
+If the message want to sent inside of the child it can be used `window.parent.postMessage`
+
+#### Resources
+https://github.com/praveenpuglia/shadow-dom-in-depth
+https://javascript.info/shadow-dom-events
+https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM
+https://stackoverflow.com/questions/55678082/turn-iframe-elements-into-text-data-javascript/55678608#55678608
+https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage
+https://robertnyman.com/html5/postMessage/postMessage.html
+https://gist.github.com/pbojinov/8965299
+https://www.oreilly.com/library/view/modern-javascript/9781491971420/ch05.html
